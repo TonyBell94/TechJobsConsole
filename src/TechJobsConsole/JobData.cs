@@ -49,7 +49,7 @@ namespace TechJobsConsole
             {
                 string aValue = row[column];
 
-                if (aValue.Contains(value))
+                if (aValue.ToUpper().Contains(value.ToUpper()))
                 {
                     jobs.Add(row);
                 }
@@ -137,6 +137,36 @@ namespace TechJobsConsole
             valueBuilder.Clear();
 
             return rowValues.ToArray();
+        }
+
+        public static List<Dictionary<string, string>>  FindByValue(string searchValue)
+        {
+            LoadData();
+
+            List<Dictionary<string, string>> valueJobs = new List<Dictionary<string, string>>();
+
+            foreach (Dictionary<string, string> job in AllJobs)
+            {
+                foreach (KeyValuePair<string, string> blah in job )
+                {
+                    string theValue = blah.Value;
+                    string theKey = blah.Key;
+
+                    if (theValue.ToUpper().Contains(searchValue.ToUpper()))
+                    {
+                        if (!valueJobs.Contains(job))
+                        {
+                            valueJobs.Add(job);
+                        }
+                        
+                    }
+                    
+                }
+
+            }
+            return valueJobs;
+
+            
         }
     }
 }
